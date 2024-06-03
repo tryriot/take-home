@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import request from 'supertest';
-import app from '../app';
+import app from '../../app';
 
 describe('Encryption API', () => {
   it('should encrypt every value in the object', async () => {

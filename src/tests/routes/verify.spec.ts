@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import request from 'supertest';
-import app from '../app';
+import app from '../../app';
 import crypto from 'crypto';
 
 describe('Verify API', () => {
