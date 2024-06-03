@@ -70,10 +70,8 @@ describe('EncryptionService', () => {
         it('should set a new encryption algorithm', () => {
             const mockAlgorithm = new MockAlgorithm();
 
-            // Change l'algorithme d'encryption
             encryptionService.setAlgorithm(mockAlgorithm);
 
-            // Teste que l'algorithme a bien été changé en chiffrant un objet
             const obj = { foo: 'bar' };
             const encryptedObj = encryptionService.encryptObject(obj);
             const decryptedObj = encryptionService.decryptObject(encryptedObj)
