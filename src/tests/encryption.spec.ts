@@ -12,6 +12,7 @@ describe('Encryption API', () => {
     };
 
     const res = await request(app).post('/encrypt').send(payload);
+    console.log(res.body)
     expect(res.status).to.equal(200);
     expect(res.body).to.have.property('foo');
     expect(res.body.foo).to.be.a('string');
@@ -26,9 +27,10 @@ describe('Encryption API', () => {
     };
 
     const res = await request(app).post('/decrypt').send(encryptedPayload);
+    console.log(res.body)
     expect(res.status).to.equal(200);
     expect(res.body).to.have.property('foo', 'foobar');
     expect(res.body).to.have.property('bar');
-    expect(JSON.parse(res.body.bar)).to.deep.equal({ isBar: true });
+    expect(res.body.bar).to.be.deep.equal({ isBar: true });
   });
 });
