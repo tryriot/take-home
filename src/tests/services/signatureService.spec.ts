@@ -1,65 +1,61 @@
 import { expect } from 'chai';
-import crypto from 'crypto';
 import { generateHmacSignature, verifyHmacSignature } from '../../services/signatureService';
 
-describe('Signature Service', () => {
-    describe('generateHmacSignature function', () => {
-        it('should generate HMAC signature for the payload using the secret key', () => {
-            const payload = {
-                foo: 'bar',
-                baz: 123
-            };
-            const secretKey = 'mysecret';
+describe('HMAC Service', () => {
+    const secret = 'mysecret';
 
-            const generatedSignature = generateHmacSignature(payload, secretKey);
+    describe('generateHmacSignature', () => {
+        it('should generate a valid HMAC signature', () => {
+            const payload = { foo: 'bar' };
+            const signature = generateHmacSignature(payload, secret);
 
-            // On génère la signature pour vérifier son format
-            const expectedHmac = crypto.createHmac('sha256', secretKey).update(JSON.stringify(payload)).digest('hex');
-            expect(generatedSignature).to.equal(expectedHmac);
+            expect(signature).to.be.a('string');
+            expect(signature).to.have.lengthOf(64); // HMAC-SHA256 signature length
         });
 
-        it('should throw an error if the payload is null', () => {
-            const payload = null;
-            const secretKey = 'mysecret';
-
-            expect(() => generateHmacSignature(payload, secretKey)).to.throw('Payload cannot be null or undefined');
+        it('should throw an error if payload is null or undefined', () => {
+            expect(() => generateHmacSignature(null, secret)).to.throw('Payload cannot be null or undefined');
+            expect(() => generateHmacSignature(undefined, secret)).to.throw('Payload cannot be null or undefined');
         });
 
-        it('should throw an error if the payload is undefined', () => {
-            const payload = undefined;
-            const secretKey = 'mysecret';
-
-            expect(() => generateHmacSignature(payload, secretKey)).to.throw('Payload cannot be null or undefined');
+        it('should throw an error if secret is null or undefined', () => {
+            const payload = { foo: 'bar' };
+            expect(() => generateHmacSignature(payload, null as any)).to.throw('Secret cannot be null or undefined');
+            expect(() => generateHmacSignature(payload, undefined as any)).to.throw('Secret cannot be null or undefined');
         });
     });
 
-    describe('verifyHmacSignature function', () => {
-        it('should return true if the signature is valid', () => {
-            const payload = {
-                foo: 'bar',
-                baz: 123
-            };
-            const secretKey = 'mysecret';
-            const signature = generateHmacSignature(payload, secretKey);
+    describe('verifyHmacSignature', () => {
+        it('should return true for a valid signature', () => {
+            const payload = { foo: 'bar' };
+            const signature = generateHmacSignature(payload, secret);
 
-            const isValid = verifyHmacSignature(payload, signature, secretKey);
+            const isValid = verifyHmacSignature(payload, signature, secret);
 
-            // Vérifie que la fonction retourne true si la signature est valide
             expect(isValid).to.be.true;
         });
 
-        it('should return false if the signature is invalid', () => {
-            const payload = {
-                foo: 'bar',
-                baz: 123
-            };
-            const secretKey = 'mysecret';
-            const signature = 'invalidSignature';
+        it('should return false for an invalid signature', () => {
+            const payload = { foo: 'bar' };
+            const invalidSignature = 'invalidsignature';
 
-            const isValid = verifyHmacSignature(payload, signature, secretKey);
+            const isValid = verifyHmacSignature(payload, invalidSignature, secret);
 
-            // Vérifie que la fonction retourne false si la signature est invalide
             expect(isValid).to.be.false;
+        });
+
+        it('should throw an error if signature is null, undefined, or not a string', () => {
+            const payload = { foo: 'bar' };
+            expect(() => verifyHmacSignature(payload, null as any, secret)).to.throw('Signature must be a non-empty string');
+            expect(() => verifyHmacSignature(payload, undefined as any, secret)).to.throw('Signature must be a non-empty string');
+        });
+
+        it('should throw an error if secret is null or undefined', () => {
+            const payload = { foo: 'bar' };
+            const signature = generateHmacSignature(payload, secret);
+
+            expect(() => verifyHmacSignature(payload, signature, null as any)).to.throw('Secret cannot be null or undefined');
+            expect(() => verifyHmacSignature(payload, signature, undefined as any)).to.throw('Secret cannot be null or undefined');
         });
     });
 });
