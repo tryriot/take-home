@@ -1,5 +1,5 @@
-import { expect } from 'chai';
-import { EncryptionService } from '../../services/encryptionService';
+import {expect} from 'chai';
+import {EncryptionService} from '../../services/encryptionService';
 import {Base64Algorithm, EncryptionAlgorithm} from "../../services/encryptionAlgorithm";
 
 describe('EncryptionService', () => {
@@ -14,7 +14,7 @@ describe('EncryptionService', () => {
             const obj = {
                 foo: 'bar',
                 baz: 123,
-                nested: { nestedProp: 'nestedValue' }
+                nested: {nestedProp: 'nestedValue'}
             };
 
             const encryptedObj = encryptionService.encryptObject(obj);
@@ -45,7 +45,7 @@ describe('EncryptionService', () => {
 
             expect(decryptedObj.foo).to.equal('bar');
             expect(decryptedObj.baz).to.equal(123);
-            expect(decryptedObj.nested).to.deep.equal({ nestedProp: 'nestedValue' });
+            expect(decryptedObj.nested).to.deep.equal({nestedProp: 'nestedValue'});
         });
 
         it('should return an empty object if the input object is empty', () => {
@@ -72,12 +72,12 @@ describe('EncryptionService', () => {
 
             encryptionService.setAlgorithm(mockAlgorithm);
 
-            const obj = { foo: 'bar' };
+            const obj = {foo: 'bar'};
             const encryptedObj = encryptionService.encryptObject(obj);
             const decryptedObj = encryptionService.decryptObject(encryptedObj)
 
             expect(encryptedObj.foo).to.equal('mock-encrypt("bar")');
-            expect(decryptedObj).to.be.deep.equal({ foo: 'bar' });
+            expect(decryptedObj).to.be.deep.equal({foo: 'bar'});
         });
     })
 });

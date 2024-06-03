@@ -1,6 +1,6 @@
-import { Request, Response, Router } from "express";
-import { EncryptionService } from "../services/encryptionService";
-import { Base64Algorithm } from "../services/encryptionAlgorithm";
+import {Request, Response, Router} from "express";
+import {EncryptionService} from "../services/encryptionService";
+import {Base64Algorithm} from "../services/encryptionAlgorithm";
 
 const encryptionService = new EncryptionService(new Base64Algorithm());
 export const encryptionRouter = Router();

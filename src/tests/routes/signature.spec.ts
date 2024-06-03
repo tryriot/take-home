@@ -6,7 +6,7 @@ import crypto from "crypto";
 describe('Signature API', () => {
     describe('Sign API', () => {
         it('should generate a HMAC signature for the payload', async () => {
-            const payload = { foo: "bar" };
+            const payload = {foo: "bar"};
             const secret = "mysecret";
 
             const res = await request(app).post('/sign').send(payload);
@@ -23,7 +23,7 @@ describe('Signature API', () => {
 
     describe('Verify API', () => {
         it('should return 204 if the signature is valid', async () => {
-            const payload = { foo: "bar" };
+            const payload = {foo: "bar"};
             const secret = 'mysecret';
             const hmac = crypto.createHmac('sha256', secret);
             hmac.update(JSON.stringify(payload));
@@ -38,7 +38,7 @@ describe('Signature API', () => {
         });
 
         it('should return 400 if the signature is invalid', async () => {
-            const payload = { foo: "bar" };
+            const payload = {foo: "bar"};
             const invalidSignature = 'invalidsignature';
 
             const res = await request(app).post('/verify').send({

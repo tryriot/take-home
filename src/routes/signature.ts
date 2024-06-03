@@ -1,5 +1,5 @@
-import { Request, Response, Router } from "express";
-import { generateHmacSignature, verifyHmacSignature } from "../services/signatureService";
+import {Request, Response, Router} from "express";
+import {generateHmacSignature, verifyHmacSignature} from "../services/signatureService";
 
 // Router for signature-related endpoints
 export const signatureRouter = Router();
@@ -16,7 +16,7 @@ const secretKey = 'mysecret';
 signatureRouter.post('/sign', (req: Request, res: Response) => {
     // Generate HMAC signature for the request body
     const signature = generateHmacSignature(req.body, secretKey);
-    res.json({ signature });
+    res.json({signature});
 });
 
 /**
@@ -26,7 +26,7 @@ signatureRouter.post('/sign', (req: Request, res: Response) => {
  * @param {Response} res - The Express Response object.
  */
 signatureRouter.post('/verify', (req: Request, res: Response) => {
-    const { signature, data } = req.body;
+    const {signature, data} = req.body;
 
     // Verify HMAC signature for the request body
     if (verifyHmacSignature(data, signature, secretKey)) {

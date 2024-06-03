@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { encryptionRouter } from './routes/encryption';
-import { signatureRouter } from "./routes/signature";
+import {encryptionRouter} from './routes/encryption';
+import {signatureRouter} from "./routes/signature";
 
 const app = express();
 
