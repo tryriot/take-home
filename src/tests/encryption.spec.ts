@@ -18,4 +18,17 @@ describe('Encryption API', () => {
     expect(res.body).to.have.property('bar');
     expect(res.body.bar).to.be.a('string');
   });
+
+  it('should decrypt every encrypted value in the object', async () => {
+    const encryptedPayload = {
+      foo: Buffer.from("foobar").toString('base64'),
+      bar: Buffer.from(JSON.stringify({ isBar: true })).toString('base64')
+    };
+
+    const res = await request(app).post('/decrypt').send(encryptedPayload);
+    expect(res.status).to.equal(200);
+    expect(res.body).to.have.property('foo', 'foobar');
+    expect(res.body).to.have.property('bar');
+    expect(JSON.parse(res.body.bar)).to.deep.equal({ isBar: true });
+  });
 });
