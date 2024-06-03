@@ -47,12 +47,10 @@ export class EncryptionService {
   decryptObject = (obj: EncryptedObject): DecryptedObject => {
     const decryptedObj: DecryptedObject = {};
     for (const key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        try {
-          decryptedObj[key] = JSON.parse(this.algorithm.decrypt(obj[key]));
-        } catch (e) {
-          decryptedObj[key] = this.algorithm.decrypt(obj[key]);
-        }
+      try {
+        decryptedObj[key] = JSON.parse(this.algorithm.decrypt(obj[key]));
+      } catch (e) {
+        decryptedObj[key] = this.algorithm.decrypt(obj[key]);
       }
     }
     return decryptedObj;
