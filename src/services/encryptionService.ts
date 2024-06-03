@@ -1,10 +1,13 @@
 import { Buffer } from 'buffer';
+import { EncryptionAlgorithm, Base64Algorithm } from './encryptionAlgorithm';
+
+const algorithm: EncryptionAlgorithm = new Base64Algorithm();
 
 export const encryptObject = (obj: any): any => {
   const encryptedObj: any = {};
   for (const key in obj) {
     if (obj.hasOwnProperty(key)) {
-      encryptedObj[key] = Buffer.from(JSON.stringify(obj[key])).toString('base64');
+      encryptedObj[key] = algorithm.encrypt(JSON.stringify(obj[key]));
     }
   }
   return encryptedObj;
@@ -15,9 +18,9 @@ export const decryptObject = (obj: any): any => {
   for (const key in obj) {
     if (obj.hasOwnProperty(key)) {
       try {
-        decryptedObj[key] = JSON.parse(Buffer.from(obj[key], 'base64').toString('utf-8'));
+        decryptedObj[key] = JSON.parse(algorithm.decrypt(obj[key]));
       } catch (e) {
-        decryptedObj[key] = Buffer.from(obj[key], 'base64').toString('utf-8');
+        decryptedObj[key] = algorithm.decrypt(obj[key]);
       }
     }
   }
