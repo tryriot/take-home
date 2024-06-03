@@ -1,14 +1,12 @@
 import crypto from 'crypto';
 
-const secretKey = 'mysecret';
-
-export const generateHmacSignature = (payload: any, secret: string = secretKey): string => {
+export const generateHmacSignature = (payload: any, secret: string): string => {
     const hmac = crypto.createHmac('sha256', secret);
     hmac.update(JSON.stringify(payload));
     return hmac.digest('hex');
 };
 
-export const verifyHmacSignature = (payload: any, signature: string, secret: string = secretKey): boolean => {
+export const verifyHmacSignature = (payload: any, signature: string, secret: string): boolean => {
     const expectedSignature = generateHmacSignature(payload, secret);
     return expectedSignature === signature;
 };
