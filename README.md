@@ -38,7 +38,7 @@ sent in a JSON response.
    }
 }
 ```
-- Data can be any JSON object and can contain encrypted fields.
+- Data can be any JSON object.
 - If the provided signature matches the computed signature, the response code should be `204`; otherwise, it should be `400`.
 
 
