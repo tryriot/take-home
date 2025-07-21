@@ -1,0 +1,21 @@
+[project]
+name = "riot-tech-challenge"
+version = "0.1.0"
+description = "Take Home Tech Challenge for riot"
+authors = [
+    {name = "Griveau Jordan",email = "jordan@worklife.io"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi (>=0.116.1,<0.117.0)"
+]
+
+[tool.poetry]
+
+[tool.poetry.group.dev.dependencies]
+black = "^25.1.0"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
