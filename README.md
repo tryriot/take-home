@@ -213,4 +213,4 @@ Output: 400 HTTP response
 
 ## Submission
 
-Please submit your completed project by sending your GitHub repository link to louis@tryriot.com.
+Please submit your completed project by sending your GitHub repository link to kevin@tryriot.com.
