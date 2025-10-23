@@ -32,9 +32,9 @@ Output:
 
 ```json
 {
-  "name": "Sm9obiBEb2U=",
-  "age": "MzA=",
-  "contact": "eyJlbWFpbCI6ImpvaG5AZXhhbXBsZS5j..."
+  "name": "some_encrypted_value",
+  "age": "some_encrypted_value",
+  "contact": "some_encrypted_value"
 }
 ```
 
@@ -42,7 +42,7 @@ Output:
 
 - **Method**: POST
 - **Input**: Any JSON payload
-- **Output**: Original JSON payload with decrypted values. If some properties contain values which were not encrypted, they must remain unchanged.
+- **Output**: Original JSON payload with decrypted values. If some properties contain values which were not encrypted, they must remain unchanged. The `/decrypt` endpoint should be able to detect encrypted strings and decrypt, returning  the decrypted payload as JSON.
 - **Decryption Algorithm**: Base64 (for simplicity)
 
 **Examples**:
@@ -53,9 +53,9 @@ Input:
 
 ```json
 {
-  "name": "Sm9obiBEb2U=",
-  "age": "MzA=",
-  "contact": "eyJlbWFpbCI6ImpvaG5AZXhhbXBsZS5j..."
+  "name": "some_encrypted_value",
+  "age": "some_encrypted_value",
+  "contact": "some_encrypted_value"
 }
 ```
 
@@ -78,9 +78,9 @@ Input:
 
 ```json
 {
-  "name": "Sm9obiBEb2U=",
-  "age": "MzA=",
-  "contact": "eyJlbWFpbCI6ImpvaG5AZXhhbXBsZS5j...",
+  "name": "some_encrypted_value",
+  "age": "some_encrypted_value",
+  "contact": "some_encrypted_value",
   "birth_date": "1998-11-19"
 }
 ```
@@ -95,7 +95,7 @@ Output:
     "email": "john@example.com",
     "phone": "123-456-7890"
   },
-  "birth_date": "1998-11-19"
+  "birth_date": "1998-11-19" // This remains unchanged
 }
 ```
 
